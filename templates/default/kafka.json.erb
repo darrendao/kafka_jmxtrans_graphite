@@ -1,7 +1,7 @@
 {
   "servers": [
     {
-      "host": "<%= node.name %>",
+      "host": "<%= node['fqdn'] %>",
       "port": <%= node['kafka']['jmx_port'] %>,
       "queries": [
         {

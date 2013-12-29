@@ -7,11 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-service "jmxtrans" do
-  supports :restart => true, :status => true, :reload => true
-  action [ :enable, :start]
-end
-
 remote_file "#{Chef::Config[:file_cache_path]}/jmxtrans.rpm" do
   source "https://github.com/downloads/jmxtrans/jmxtrans/jmxtrans-20121016.145842.6a28c97fbb-0.noarch.rpm"
   action :create
@@ -37,3 +32,9 @@ template "/etc/sysconfig/jmxtrans" do
   mode  "0644"
   notifies :restart, "service[jmxtrans]"
 end
+
+service "jmxtrans" do
+  supports :restart => true, :status => true, :reload => true
+  action [ :enable, :start]
+end
+
