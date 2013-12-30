@@ -17,6 +17,11 @@ rpm_package "jmxtrans" do
     action :install
 end
 
+service "jmxtrans" do
+  supports :restart => true, :status => true, :reload => true
+  action [ :enable, :start]
+end
+
 template "/var/lib/jmxtrans/kafka.json" do
   source "kafka.json.erb"
   owner node['jmxtrans']['user']
@@ -31,10 +36,5 @@ template "/etc/sysconfig/jmxtrans" do
   group node['jmxtrans']['user']
   mode  "0644"
   notifies :restart, "service[jmxtrans]"
-end
-
-service "jmxtrans" do
-  supports :restart => true, :status => true, :reload => true
-  action [ :enable, :start]
 end
 
