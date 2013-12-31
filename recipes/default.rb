@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+package "java-1.6.0-openjdk-devel"
+
 remote_file "#{Chef::Config[:file_cache_path]}/jmxtrans.rpm" do
   source "https://github.com/downloads/jmxtrans/jmxtrans/jmxtrans-20121016.145842.6a28c97fbb-0.noarch.rpm"
   action :create
