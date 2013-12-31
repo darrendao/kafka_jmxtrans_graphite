@@ -5,6 +5,71 @@
       "port": <%= node['kafka']['jmx_port'] %>,
       "queries": [
         {
+         "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.KeyOutWriter",
+              "settings": {
+                "outputFile": "/tmp/jmxtrans2.out"
+              }
+            },
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "port": <%= node['graphite']['port'] %>,
+                "host": "<%= node['graphite']['host'] %>"
+              }
+            }
+          ]
+       ,
+      "obj" : "java.lang:type=Memory",
+      "resultAlias": "kafka.heap",
+      "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ]
+    },
+        {
+         "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.KeyOutWriter",
+              "settings": {
+                "outputFile": "/tmp/jmxtrans2.out"
+              }
+            },
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "port": <%= node['graphite']['port'] %>,
+                "host": "<%= node['graphite']['host'] %>"
+              }
+            }
+          ]
+       ,
+      "obj" : "java.lang:type=GarbageCollector,name=*",
+      "resultAlias": "kafka.gc",
+      "attr" : [ "CollectionCount", "CollectionTime" ]
+    },
+
+        {
+         "outputWriters": [
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.KeyOutWriter",
+              "settings": {
+                "outputFile": "/tmp/jmxtrans2.out"
+              }
+            },
+            {
+              "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings": {
+                "port": <%= node['graphite']['port'] %>,
+                "host": "<%= node['graphite']['host'] %>"
+              }
+            }
+          ]
+       ,
+      "obj" : "java.lang:type=Threading",
+      "resultAlias": "kafka.thread",
+      "attr" : [ "ThreadCount" ]
+    },
+
+        {
           "obj": "\"kafka.log\":type=\"LogFlushStats\",name=\"LogFlushRateAndTimeMs\"",
           "attr": [
             "Count"
